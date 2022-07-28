@@ -1,5 +1,6 @@
 import requests, os
 import json
+import tabulate
 import meraki
 
 MERAKI_DASHBOARD_API_KEY = os.environ.get("NSCON_MERAKI_API_KEY")
@@ -16,10 +17,20 @@ network_list = dashboard.organizations.getOrganizationNetworks(org_id)
 
 print(f'\nYour organization \"{org_name}\" with ID {org_id} includes the following networks:')
 
-i=0
+# Define table headers and values
+headers=["No.", "Network Name", "Network ID"]
+table = []
+i=1
+
 for network in network_list:
     network_id = network['id']
     network_name = network['name']
-    print(f"\n- Name: {network_name}, ID: {network_id}")
+    #print(f"\n- Name: {network_name}, ID: {network_id}")
+    row = [network_name, network_id]
+    print(row)
+    table.append(row)
 
-print("\nPlease enter a number to get more health details of a network or press 0 for exit: ")
+print(table)
+print(tabulate(table, headers=headers, tablefmt="fancy_grid"))
+
+#print("\nPlease enter a number to get more health details of a network or press 0 for exit: ")
