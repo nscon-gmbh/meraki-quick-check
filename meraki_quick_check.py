@@ -1,4 +1,4 @@
-#! /usr/bin/python3 
+""" Meraki Quick Check """
 
 # Define Python modules
 import os
@@ -28,8 +28,10 @@ for network in network_list:
     network_name = network['name']
 
     # Get online and offline clients for a network
-    clients_online = len(dashboard.networks.getNetworkClients(network_id, total_pages='all', statuses='Online'))
-    clients_offline = len(dashboard.networks.getNetworkClients(network_id, total_pages='all', statuses='Offline'))
+    clients_online = len(dashboard.networks.getNetworkClients(
+        network_id, total_pages='all', statuses='Online'))
+    clients_offline = len(dashboard.networks.getNetworkClients(
+        network_id, total_pages='all', statuses='Offline'))
     clients = f"{clients_online} Online / {clients_offline} Offline"
 
     # Get devices of a network for each device model
