@@ -1,11 +1,12 @@
 """ Modules """
 import os
+from pickle import FALSE
 import tabulate
 import meraki
 
 MERAKI_DASHBOARD_API_KEY = os.environ.get("NSCON_MERAKI_API_KEY")
 
-dashboard = meraki.DashboardAPI(MERAKI_DASHBOARD_API_KEY)
+dashboard = meraki.DashboardAPI(MERAKI_DASHBOARD_API_KEY, log_path="logs", print_console=False)
 
 org = dashboard.organizations.getOrganizations()[0]
 org_id = org.get('id')
