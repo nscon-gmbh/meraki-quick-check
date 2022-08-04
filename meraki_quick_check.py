@@ -18,7 +18,7 @@ network_list = dashboard.organizations.getOrganizationNetworks(org_id)
 print(f'\nYour organization \"{org_name}\" with ID {org_id} includes the following networks:\n')
 
 # Define table headers and values
-headers=["No.", "Network Name", "Network ID", "Clients (on/off)", "Network Alerts"]
+headers=["No.", "Network Name", "Network ID", "Clients last 24h", "Traffic last 24h", "Events last 24h"]
 table = []
 
 for network in network_list:
@@ -26,9 +26,16 @@ for network in network_list:
     network_name = network['name']
     clients_online = len(dashboard.networks.getNetworkClients(network_id, total_pages='all', statuses='Online'))
     clients_offline = len(dashboard.networks.getNetworkClients(network_id, total_pages='all', statuses='Offline'))
-    clients = f"{clients_online} / {clients_offline}"
-    row = [network_name, network_id, clients]
-    #print(row)
+    clients = f"{clients_online} Online / {clients_offline} Offline"
+
+    # Get network traffic for network_id for last 24h
+    try:
+        traffic = dashboard.networks.getNetworkTraffic(network_id, timespan=86400)
+    except meraki.exceptions.APIError:
+        traffic = "n/a"
+
+    # Add data to table row and add row to table
+    row = [network_name, network_id, clients, traffic]
     table.append(row)
 
 #print(table)
