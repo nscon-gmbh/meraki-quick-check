@@ -1,5 +1,5 @@
-import requests, os
-import json
+""" Modules """
+import os
 import tabulate
 import meraki
 
@@ -31,6 +31,6 @@ for network in network_list:
     table.append(row)
 
 print(table)
-print(tabulate(table, headers=headers, tablefmt="fancy_grid"))
+print(tabulate.tabulate(table, headers=headers, tablefmt="fancy_grid"))
 
 #print("\nPlease enter a number to get more health details of a network or press 0 for exit: ")
