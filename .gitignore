@@ -256,3 +256,6 @@ fabric.properties
 
 # Meraki logs
 logs
+
+# Test files
+*test*
