@@ -1,42 +1,74 @@
 # meraki-quick-check
 
-Quick Meraki Dashboard API Health Check
+Quick Meraki Dashboard API Check
  
 ## Use Case Description
 
-Describe the problem this code addresses, how your code solves the problem, challenges you had to overcome as part of the solution, and optional ideas you have in mind that could further extend your solution.
+This script provides a quick and brief overview of the organization networks from the Meraki Dashboard API v1.
 
 ## Installation
 
-Detailed instructions on how to install, configure, and get the project running. Call out any dependencies. This should be frequently tested and updated to make sure it works reliably, accounts for updated versions of dependencies, etc.
+Note: This installation was done on macOS Monterey Version 12.4.
+
+1. Clone the repository and change into new directory:
+
+```bash
+git clone https://github.com/nscon-gmbh/meraki-quick-check.git
+cd meraki-quick-check
+```
+
+2. Create and activate virtual environment:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+3. Install Python modules used in the script:
+
+```bash
+pip install -r requirements.txt
+```
 
 ## Configuration
 
-If the code is configurable, describe it in detail, either here or in other documentation that you reference.
+Make sure to have a valid Meraki API key. Please check the [Meraki Dashboard API documentation](https://developer.cisco.com/meraki/api-v1/) for any further information.
+
+There is no need for any further configuration. It is optional to use your Meraki API key as environment variable called "YOUR_MERAKI_API_KEY" in the script. Otherwise you will get a prompt to paste your API key during execution of the script.
 
 ## Usage
 
-Show users how to use the code. Be specific.
-Use appropriate formatting when showing code snippets or command line output.
+Run the script:
 
-### DevNet Sandbox
+```bash
+python meraki_quick_check.py
+```
 
-A great way to make your repo easy for others to use is to provide a link to a [DevNet Sandbox](https://developer.cisco.com/site/sandbox/) that provides a network or other resources required to use this code. In addition to identifying an appropriate sandbox, be sure to provide instructions and any configuration necessary to run your code with the sandbox.
+Example output:
 
-## How to test the software
+```bash
+(venv) danielkuhl@localhost meraki-quick-check % python meraki_quick_check.py 
 
-Provide details on steps to test, versions of components/dependencies against which code was tested, date the code was last tested, etc. 
-If the repo includes automated tests, detail how to run those tests.
-If the repo is instrumented with a continuous testing framework, that is even better.
+Enter your Meraki API key: <HERE IS YOUR API KEY>
 
+Your organization "YOUR ORG NAME" with ID 123456 includes the following networks:
+
+╒═══════╤═════════════════╤══════════════════════╤═══════════════════════════╤════════════════════════╤════════════════════╕
+│   No. │ Network Name    │ Network ID           │ Devices                   │ Clients last 24h       │ Traffic last 24h   │
+╞═══════╪═════════════════╪══════════════════════╪═══════════════════════════╪════════════════════════╪════════════════════╡
+│     0 │ PROD_NET        │ L_123456789012345678 │ 2 MX(s), 6 MS(s), 8 MR(s) │ 45 Online / 9 Offline  │ 123456 bytes       │
+├───────┼─────────────────┼──────────────────────┼───────────────────────────┼────────────────────────┼────────────────────┤
+│     1 │ TEST_NET        │ L_098765432109876543 │ 1 MX(s), 1 MS(s), 1 MR(s) │ 0 Online / 0 Offline   │ n/a                │
+╘═══════╧═════════════════╧══════════════════════╧═══════════════════════════╧════════════════════════╧════════════════════╛
+```
 
 ## Known issues
 
-Document any significant shortcomings with the code. If using [GitHub Issues](https://help.github.com/en/articles/about-issues) to track issues, make that known and provide any templates or conventions to be followed when opening a new issue. 
+There are currently no known issues. Please use [GitHub Issues](https://github.com/nscon-gmbh/meraki-quick-check/issues) to open a new issue by providing a helpful description about the issue.
 
 ## Getting help
 
-Instruct users how to get help with this code; this might include links to an issues list, wiki, mailing list, etc.
+In case you need any help please create an issue against this repository or reach out to the author.
 
 **Example**
 
@@ -44,9 +76,7 @@ If you have questions, concerns, bug reports, etc., please create an issue again
 
 ## Getting involved
 
-This section should detail why people should get involved and describe key areas you are currently focusing on; e.g., trying to get feedback on features, fixing certain bugs, building important pieces, etc. Include information on how to setup a development environment if different from general installation instructions.
-
-General instructions on _how_ to contribute should be stated with a link to [CONTRIBUTING](./CONTRIBUTING.md) file.
+Please get involved by giving feedback on features, fixing certain bugs, building important pieces, etc.
 
 ## Author(s)
 
