@@ -18,7 +18,7 @@ network_list = dashboard.organizations.getOrganizationNetworks(org_id)
 print(f'\nYour organization \"{org_name}\" with ID {org_id} includes the following networks:\n')
 
 # Define table headers and values
-headers=["No.", "Network Name", "Network ID", "Devices", "Clients last 24h", "Traffic last 24h", "Events last 24h"]
+headers=["No.", "Network Name", "Network ID", "Devices", "Clients last 24h", "Traffic last 24h"]
 table = []
 
 for network in network_list:
@@ -27,12 +27,6 @@ for network in network_list:
     clients_online = len(dashboard.networks.getNetworkClients(network_id, total_pages='all', statuses='Online'))
     clients_offline = len(dashboard.networks.getNetworkClients(network_id, total_pages='all', statuses='Offline'))
     clients = f"{clients_online} Online / {clients_offline} Offline"
-
-    # Get network traffic for network_id for last 24h
-    # try:
-    #     traffic = dashboard.networks.getNetworkTraffic(network_id, timespan=86400)
-    # except meraki.exceptions.APIError:
-    #     traffic = "n/a"
 
     # Get devices for network_id for each model
     devices_all = dashboard.networks.getNetworkDevices(network_id)
@@ -52,8 +46,21 @@ for network in network_list:
     
     devices = f"{mx} MX(s), {ms} MS(s), {mr} MR(s)"
 
+    # Get network traffic for network_id for last 24h
+    try:
+        traffic_all = dashboard.networks.getNetworkTraffic(network_id, timespan=86400)
+        i=0
+        traffic_sum = 0
+        for traffic in traffic_all:
+            traffic = traffic_all[i]['recv'] + traffic_all[i]['sent']
+            traffic_sum += traffic
+            i+=1
+        traffic_sum = f"{traffic_sum} bytes"
+    except meraki.exceptions.APIError:
+        traffic_sum = "n/a"
+
     # Add data to table row and add row to table
-    row = [network_name, network_id, devices, clients]
+    row = [network_name, network_id, devices, clients, traffic_sum]
     table.append(row)
 
 #print(table)
