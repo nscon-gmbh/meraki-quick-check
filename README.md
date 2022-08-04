@@ -2,7 +2,7 @@
 
 Quick Meraki Dashboard API Check
  
-## Use Case Description
+## Description
 
 This script provides a quick and brief overview of the organization networks from the Meraki Dashboard API v1.
 
@@ -32,9 +32,10 @@ pip install -r requirements.txt
 
 ## Configuration
 
+There is no need for any further configuration. It is optional to use your Meraki API key as environment variable called "YOUR_MERAKI_API_KEY" in the script. Otherwise you will get a prompt to paste your API key during execution of the script.
+
 Make sure to have a valid Meraki API key. Please check the [Meraki Dashboard API documentation](https://developer.cisco.com/meraki/api-v1/) for any further information.
 
-There is no need for any further configuration. It is optional to use your Meraki API key as environment variable called "YOUR_MERAKI_API_KEY" in the script. Otherwise you will get a prompt to paste your API key during execution of the script.
 
 ## Usage
 
