@@ -32,4 +32,11 @@ for network in network_list:
 #print(table)
 print(tabulate.tabulate(table, headers=headers, tablefmt="fancy_grid", showindex=True))
 
-#print("\nPlease enter a number to get more health details of a network or press 0 for exit: ")
+print("\nPlease enter a number to get more health details of a network or press \'e\' for exit: ")
+
+"""
+Next steps:
+- add health overview to table
+- implement function to get more health details of a network
+- omit logs in output ans specify log folder
+"""
