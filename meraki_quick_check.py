@@ -43,7 +43,7 @@ for network in network_list:
         if "MR" in device['model']:
             mr+=1
         i+=1
-    
+
     devices = f"{mx} MX(s), {ms} MS(s), {mr} MR(s)"
 
     # Get network traffic for network_id for last 24h
