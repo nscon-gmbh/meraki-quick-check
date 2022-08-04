@@ -5,9 +5,11 @@ import os
 import tabulate
 import meraki
 
-MERAKI_DASHBOARD_API_KEY = os.environ.get("NSCON_MERAKI_API_KEY")
+# Set Meraki API Key via env variable or input if not set
+api_key = os.environ.get("NSCON_MERAKI_API_KEY") or input("\nEnter your Meraki API key: ")
 
-dashboard = meraki.DashboardAPI(MERAKI_DASHBOARD_API_KEY, log_path="logs", print_console=False)
+# Set Meraki Dashboard API call, send logs to log folder and omit log output on console
+dashboard = meraki.DashboardAPI(api_key, log_path="logs", print_console=False)
 
 # Get organization details and assign variables
 org = dashboard.organizations.getOrganizations()[0]
