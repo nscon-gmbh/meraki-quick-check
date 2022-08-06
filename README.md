@@ -32,6 +32,12 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+4. Create logs directory which will contain all API calls to Meraki API:
+
+``` bash
+mkdir logs
+```
+
 ## Configuration
 
 There is no need for any further configuration. It is optional to use your Meraki API key as environment variable called "YOUR_MERAKI_API_KEY" in the script. Otherwise you will get a prompt to paste your API key during execution of the script.
