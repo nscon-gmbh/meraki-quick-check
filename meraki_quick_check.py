@@ -34,7 +34,7 @@ if len(orgs) > 0:
     # Print table using the received organization data
     print(tabulate.tabulate(table, headers=headers, tablefmt='fancy_grid', showindex=True))
 
-    org_number = int(input('\nChoose one organization ID from list: '))
+    org_number = int(input('\nChoose one number ID from list: '))
 
 # Else choose the only organization available
 else:
