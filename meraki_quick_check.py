@@ -20,29 +20,30 @@ table = []
 
 # If more than one organization then get all org data and print table
 i = 0
-if len(orgs) > 1:
+if len(orgs) > 0:
+    print('\nYour API Key grants access to the following organizations:\n')
     for org in orgs:
-        print('\nYour API Key grants access to the following organizations:\n')
         org_name = orgs[i]['name']
         org_id = orgs[i]['id']
         i += 1
 
-    # Add all organization data to table row and add row to table
-    row = [org_name, org_id]
-    table.append(row)
+        # Add all organization data to table row and add row to table
+        row = [org_name, org_id]
+        table.append(row)
 
     # Print table using the received organization data
     print(tabulate.tabulate(table, headers=headers, tablefmt='fancy_grid', showindex=True))
 
-    org = input('\nChoose one organization ID from list: ')
+    org_number = int(input('\nChoose one number ID from list: '))
 
 # Else choose the only organization available
 else:
     org = orgs[0]
 
 # Get organization details and assign variables
-org_id = org.get('id')
-org_name = org.get('name')
+
+org_id = table[org_number][1]
+org_name = table[org_number][0]
 
 # Get list of networks for organization
 network_list = dashboard.organizations.getOrganizationNetworks(org_id)
