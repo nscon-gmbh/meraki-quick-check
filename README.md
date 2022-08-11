@@ -6,11 +6,13 @@ Quick Meraki Dashboard API Check
  
 ## Description
 
-This script provides a quick and brief overview of the organization networks from the Meraki Dashboard API v1.
+This script provides a quick and brief overview of the organization networks from the Meraki Dashboard API v1 you have access to using your Meraki API key. 
+
+If you want to get a complete health check please take a look at the [Meraki Health Check](https://developer.cisco.com/codeexchange/github/repo/obrigg/meraki-health-check/) repository.
 
 ## Installation
 
-Note: This installation was done on macOS Monterey Version 12.4.
+Note: This installation was done on macOS Monterey 12.4 using Python 3.9.13.
 
 1. Clone the repository and change into new directory:
 
@@ -34,7 +36,7 @@ pip install -r requirements.txt
 
 ## Configuration
 
-There is no need for any further configuration. It is optional to use your Meraki API key as environment variable called "YOUR_MERAKI_API_KEY" in the script. Otherwise you will get a prompt to paste your API key during execution of the script.
+There is no need for any further configuration. It is optional to use your Meraki API key as environment variable called "YOUR_MERAKI_API_KEY" in the script. Otherwise you will get a prompt to paste your API key during execution of the script. All log files from the Meraki Dashboard API will be stored at the "logs" folder.
 
 Make sure to have a valid Meraki API key. Please check the [Meraki Dashboard API documentation](https://developer.cisco.com/meraki/api-v1/) for any further information.
 
@@ -71,11 +73,7 @@ There are currently no known issues. Please use [GitHub Issues](https://github.c
 
 ## Getting help
 
-In case you need any help please create an issue against this repository or reach out to the author.
-
-**Example**
-
-If you have questions, concerns, bug reports, etc., please create an issue against this repository.
+If you have questions, concerns, bug reports, etc., please create an issue against this repository or get in contact with the author.
 
 ## Getting involved
 
