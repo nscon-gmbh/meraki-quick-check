@@ -7,9 +7,9 @@ import meraki
 
 # Check if folder 'logs' exists otherwise create it
 if os.path.exists('logs'):
-    print('\nFor Meraki Dashboard API log files please check "logs" folder.\n')
+    print('\nINFO: For Meraki Dashboard API log files please check the "logs" folder.')
 else:
-    print('\nFolder for Meraki Dashboard API logs does not exist - creating "logs" folder for you.\n')
+    print('\nINFO: The folder for Meraki Dashboard API logs does not exist - creating "logs" folder for you.')
     os.mkdir('logs')
 
 # Set Meraki API Key via env variable or input if not set
