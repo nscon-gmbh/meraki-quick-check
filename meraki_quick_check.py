@@ -5,6 +5,13 @@ import os
 import tabulate
 import meraki
 
+# Check if folder 'logs' exists otherwise create it
+if os.path.exists('logs'):
+    print('\nINFO: For Meraki Dashboard API log files please check the "logs" folder.')
+else:
+    print('\nINFO: The folder for Meraki Dashboard API logs does not exist - creating "logs" folder for you.')
+    os.mkdir('logs')
+
 # Set Meraki API Key via env variable or input if not set
 api_key = os.environ.get('YOUR_MERAKI_API_KEY') or input('\nEnter your Meraki API key: ')
 
