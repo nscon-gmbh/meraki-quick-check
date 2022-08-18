@@ -116,7 +116,7 @@ Your organization "DevNet Sandbox" with ID 549236 includes the following network
 
 ### DevNet Sandbox
 
-This script was tested with the (Cisco DevNet Meraki Always On sandbox)[https://devnetsandbox.cisco.com/RM/Diagram/Index/a9487767-deef-4855-b3e3-880e7f39eadc?diagramType=Topology]. Please double check that the API key provided in the instructions is a valid one and present in the profile of the sandbox user before using it.
+This script was tested with the [Cisco DevNet Meraki Always On sandbox](https://devnetsandbox.cisco.com/RM/Diagram/Index/a9487767-deef-4855-b3e3-880e7f39eadc?diagramType=Topology). Please double check that the API key provided in the instructions is a valid one and present in the profile of the sandbox user before using it.
 
 ## Known issues
 
