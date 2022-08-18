@@ -39,17 +39,17 @@ try:
             # Add all organization data to table row and add row to table
             row = [org_name, org_id]
             table.append(row)
-            print(table)
 
         # Print table using the received organization data
         print(tabulate.tabulate(table, headers=headers, tablefmt='fancy_grid', showindex=True))
 
         # Choose organization number from table
-        org_no = input('\nChoose one organization no. from list: ')
+        org_no = int(input('\nChoose one organization no. from list: '))
+        org = table[org_no]
 
         # Get organization details and assign variables
-        org_id = table[org_no][1]
-        org_name = table[org_no][0]
+        org_id = org[1]
+        org_name = org[0]
 
     # Else choose the only organization available
     else:
