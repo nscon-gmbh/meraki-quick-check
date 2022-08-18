@@ -77,10 +77,17 @@ for network in network_list:
     network_name = network['name']
 
     # Get online and offline clients for a network
-    clients_online = len(dashboard.networks.getNetworkClients(
-        network_id, total_pages='all', statuses='Online'))
-    clients_offline = len(dashboard.networks.getNetworkClients(
-        network_id, total_pages='all', statuses='Offline'))
+    try:
+        clients_online = len(dashboard.networks.getNetworkClients(
+            network_id, total_pages='all', statuses='Online'))
+    except meraki.exceptions.APIError:
+        clients_online = 0         
+    try:
+        clients_offline = len(dashboard.networks.getNetworkClients(
+            network_id, total_pages='all', statuses='Offline'))
+    except meraki.exceptions.APIError:
+        clients_offline = 0     
+    
     clients = f'{clients_online} Online / {clients_offline} Offline'
 
     # Get devices of a network for each device model
