@@ -13,43 +13,55 @@ else:
     os.mkdir('logs')
 
 # Set Meraki API Key via env variable or input if not set
-api_key = os.environ.get('YOUR_MERAKI_API_KEY') or input('\nEnter your Meraki API key: ')
+#api_key = os.environ.get('YOUR_MERAKI_API_KEY') or input('\nEnter your Meraki API key: ')
+api_key = "75750d376ea3d1392d986a6d287de396e9d57094"
 
 # Set Meraki Dashboard API call, send logs to log folder and omit log output on console
 dashboard = meraki.DashboardAPI(api_key, log_path="logs", print_console=False)
-
-# Get all organizations
-orgs = dashboard.organizations.getOrganizations()
 
 # Define table headers and values for organizations
 headers = ["No.", "Org Name", "Org ID"]
 table = []
 
-# If more than one organization then get all org data and print table
-i = 0
-if len(orgs) > 1:
-    for org in orgs:
+# Get all organizations
+try:
+    orgs = dashboard.organizations.getOrganizations()
+
+    # If more than one organization then get all org data and print table
+    i = 0
+    if len(orgs) > 1:
         print('\nYour API Key grants access to the following organizations:\n')
-        org_name = orgs[i]['name']
-        org_id = orgs[i]['id']
-        i += 1
+        for org in orgs:
+            org_name = orgs[i]['name']
+            org_id = orgs[i]['id']
+            i += 1
 
-    # Add all organization data to table row and add row to table
-    row = [org_name, org_id]
-    table.append(row)
+            # Add all organization data to table row and add row to table
+            row = [org_name, org_id]
+            table.append(row)
+            print(table)
 
-    # Print table using the received organization data
-    print(tabulate.tabulate(table, headers=headers, tablefmt='fancy_grid', showindex=True))
+        # Print table using the received organization data
+        print(tabulate.tabulate(table, headers=headers, tablefmt='fancy_grid', showindex=True))
 
-    org = input('\nChoose one organization ID from list: ')
+        # Choose organization number from table
+        org_no = input('\nChoose one organization no. from list: ')
 
-# Else choose the only organization available
-else:
-    org = orgs[0]
+        # Get organization details and assign variables
+        org_id = table[org_no][1]
+        org_name = table[org_no][0]
 
-# Get organization details and assign variables
-org_id = org.get('id')
-org_name = org.get('name')
+    # Else choose the only organization available
+    else:
+        org = orgs[0]
+
+        # Get organization details and assign variables
+        org_id = org.get('id')
+        org_name = org.get('name')
+
+except meraki.exceptions.APIError as e:
+    print(f'\nERROR: {e}')
+    org_id = input('\nPlease enter your organization ID manually: ')
 
 # Get list of networks for organization
 network_list = dashboard.organizations.getOrganizationNetworks(org_id)
