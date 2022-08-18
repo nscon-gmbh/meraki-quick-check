@@ -13,8 +13,7 @@ else:
     os.mkdir('logs')
 
 # Set Meraki API Key via env variable or input if not set
-#api_key = os.environ.get('YOUR_MERAKI_API_KEY') or input('\nEnter your Meraki API key: ')
-api_key = "75750d376ea3d1392d986a6d287de396e9d57094"
+api_key = os.environ.get('YOUR_MERAKI_API_KEY') or input('\nEnter your Meraki API key: ')
 
 # Set Meraki Dashboard API call, send logs to log folder and omit log output on console
 dashboard = meraki.DashboardAPI(api_key, log_path="logs", print_console=False)
