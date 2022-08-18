@@ -88,7 +88,7 @@ for network in network_list:
     except meraki.exceptions.APIError:
         clients_offline = 0     
     
-    clients = f'{clients_online} Online / {clients_offline} Offline'
+    clients = f'{clients_online} On / {clients_offline} Off'
 
     # Get devices of a network for each device model
     devices_list = dashboard.networks.getNetworkDevices(network_id)
@@ -97,6 +97,7 @@ for network in network_list:
     devices_mx = 0
     devices_ms = 0
     devices_mr = 0
+    devices_mv = 0
 
     # Iterate through device list and count devices per model
     i = 0
@@ -112,9 +113,12 @@ for network in network_list:
         if "MR" in device['model']:
             devices_mr += 1
 
+        if "MV" in device['model']:
+            devices_mv += 1
+
         i+=1
 
-    devices = f"{devices_mx} MX(s), {devices_ms} MS(s), {devices_mr} MR(s)"
+    devices = f"{devices_mx} MX(s), {devices_ms} MS(s), {devices_mr} MR(s), {devices_mv} MV(s)"
 
     # Get network traffic for a network for the last 24h
     try:
