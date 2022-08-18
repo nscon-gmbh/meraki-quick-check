@@ -9,7 +9,7 @@ import meraki
 if os.path.exists('logs'):
     print('\nINFO: For Meraki Dashboard API log files please check the "logs" folder.')
 else:
-    print('\nINFO: The folder for Meraki Dashboard API logs does not exist - creating "logs" folder for you.')
+    print('\nINFO: Meraki Dashboard API log folder not found - creating "logs" folder for you.')
     os.mkdir('logs')
 
 # Set Meraki API Key via env variable or input if not set
@@ -18,38 +18,49 @@ api_key = os.environ.get('YOUR_MERAKI_API_KEY') or input('\nEnter your Meraki AP
 # Set Meraki Dashboard API call, send logs to log folder and omit log output on console
 dashboard = meraki.DashboardAPI(api_key, log_path="logs", print_console=False)
 
-# Get all organizations
-orgs = dashboard.organizations.getOrganizations()
-
 # Define table headers and values for organizations
 headers = ["No.", "Org Name", "Org ID"]
 table = []
 
-# If more than one organization then get all org data and print table
-i = 0
-if len(orgs) > 1:
-    for org in orgs:
+# Get all organizations
+try:
+    orgs = dashboard.organizations.getOrganizations()
+
+    # If more than one organization then get all org data and print table
+    i = 0
+    if len(orgs) > 1:
         print('\nYour API Key grants access to the following organizations:\n')
-        org_name = orgs[i]['name']
-        org_id = orgs[i]['id']
-        i += 1
+        for org in orgs:
+            org_name = orgs[i]['name']
+            org_id = orgs[i]['id']
+            i += 1
 
-    # Add all organization data to table row and add row to table
-    row = [org_name, org_id]
-    table.append(row)
+            # Add all organization data to table row and add row to table
+            row = [org_name, org_id]
+            table.append(row)
 
-    # Print table using the received organization data
-    print(tabulate.tabulate(table, headers=headers, tablefmt='fancy_grid', showindex=True))
+        # Print table using the received organization data
+        print(tabulate.tabulate(table, headers=headers, tablefmt='fancy_grid', showindex=True))
 
-    org = input('\nChoose one organization ID from list: ')
+        # Choose organization number from table
+        org_no = int(input('\nChoose one organization no. from list: '))
+        org = table[org_no]
 
-# Else choose the only organization available
-else:
-    org = orgs[0]
+        # Get organization details and assign variables
+        org_id = org[1]
+        org_name = org[0]
 
-# Get organization details and assign variables
-org_id = org.get('id')
-org_name = org.get('name')
+    # Else choose the only organization available
+    else:
+        org = orgs[0]
+
+        # Get organization details and assign variables
+        org_id = org.get('id')
+        org_name = org.get('name')
+
+except meraki.exceptions.APIError as e:
+    print(f'\nERROR: {e}')
+    org_id = input('\nPlease enter your organization ID manually: ')
 
 # Get list of networks for organization
 network_list = dashboard.organizations.getOrganizationNetworks(org_id)
@@ -65,11 +76,18 @@ for network in network_list:
     network_name = network['name']
 
     # Get online and offline clients for a network
-    clients_online = len(dashboard.networks.getNetworkClients(
-        network_id, total_pages='all', statuses='Online'))
-    clients_offline = len(dashboard.networks.getNetworkClients(
-        network_id, total_pages='all', statuses='Offline'))
-    clients = f'{clients_online} Online / {clients_offline} Offline'
+    try:
+        clients_online = len(dashboard.networks.getNetworkClients(
+            network_id, total_pages='all', statuses='Online'))
+    except meraki.exceptions.APIError:
+        clients_online = 0         
+    try:
+        clients_offline = len(dashboard.networks.getNetworkClients(
+            network_id, total_pages='all', statuses='Offline'))
+    except meraki.exceptions.APIError:
+        clients_offline = 0     
+    
+    clients = f'{clients_online} On / {clients_offline} Off'
 
     # Get devices of a network for each device model
     devices_list = dashboard.networks.getNetworkDevices(network_id)
@@ -78,6 +96,7 @@ for network in network_list:
     devices_mx = 0
     devices_ms = 0
     devices_mr = 0
+    devices_mv = 0
 
     # Iterate through device list and count devices per model
     i = 0
@@ -93,9 +112,12 @@ for network in network_list:
         if "MR" in device['model']:
             devices_mr += 1
 
+        if "MV" in device['model']:
+            devices_mv += 1
+
         i+=1
 
-    devices = f"{devices_mx} MX(s), {devices_ms} MS(s), {devices_mr} MR(s)"
+    devices = f"{devices_mx} MX(s), {devices_ms} MS(s), {devices_mr} MR(s), {devices_mv} MV(s)"
 
     # Get network traffic for a network for the last 24h
     try:
