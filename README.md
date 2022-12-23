@@ -3,10 +3,10 @@
 [![published](https://static.production.devnetcloud.com/codeexchange/assets/images/devnet-published.svg)](https://developer.cisco.com/codeexchange/github/repo/nscon-gmbh/meraki-quick-check)
 
 Quick Meraki Dashboard API Check
- 
+
 ## Description
 
-This script provides a quick and brief overview of the organization networks from the Meraki Dashboard API v1 you have access to using your Meraki API key. 
+This script provides a quick and brief overview of the organization networks from the Meraki Dashboard API v1 you have access to using your Meraki API key.
 
 If you want to get a complete health check please take a look at the [Meraki Health Check](https://developer.cisco.com/codeexchange/github/repo/obrigg/meraki-health-check/) repository.
 
@@ -16,17 +16,17 @@ Note: This installation was done on macOS Monterey 12.4 using Python 3.9.13.
 
 1. Clone the repository and change into new directory:
 
-```bash
-git clone https://github.com/nscon-gmbh/meraki-quick-check.git
-cd meraki-quick-check
-```
+    ```bash
+    git clone https://github.com/nscon-gmbh/meraki-quick-check.git
+    cd meraki-quick-check
+    ```
 
 2. Create and activate virtual environment:
 
-```bash
-python3 -m venv venv
-source venv/bin/activate
-```
+    ```bash
+    python3 -m venv venv
+    source venv/bin/activate
+    ```
 
 3. Install Python modules used in the script:
 
@@ -39,7 +39,6 @@ pip install -r requirements.txt
 There is no need for any further configuration. It is optional to use your Meraki API key as environment variable called "YOUR_MERAKI_API_KEY" in the script. Otherwise you will get a prompt to paste your API key during execution of the script. All log files from the Meraki Dashboard API will be stored at the "logs" folder.
 
 Make sure to have a valid Meraki API key. Please check the [Meraki Dashboard API documentation](https://developer.cisco.com/meraki/api-v1/) for any further information.
-
 
 ## Usage
 
